@@ -39,28 +39,28 @@ type Logecho struct {
 
 // NewZapWithConfig enables custom configuration to instantiate
 // a new ZapLog
-func NewZapWithConfig(zcfg ZapConfig) *Logecho {
-	mCfg := zap.NewProductionConfig()
-	if zcfg.IsDevelopment {
-		mCfg = zap.NewDevelopmentConfig()
+func NewZapWithConfig(config Config) *Logecho {
+	initConfig := zap.NewProductionConfig()
+	if config.IsDevelopment {
+		initConfig = zap.NewDevelopmentConfig()
 	}
 
-	if zcfg.CallerKey == "" {
-		mCfg.EncoderConfig.EncodeCaller = nil
+	if config.CallerKey == "" {
+		initConfig.EncoderConfig.EncodeCaller = nil
 	}
 
-	mCfg.Sampling = nil // disable sampling
+	initConfig.Sampling = nil // disable sampling
 
-	mCfg.EncoderConfig.MessageKey = zcfg.msgKey()
-	mCfg.EncoderConfig.CallerKey = zcfg.CallerKey
-	mCfg.EncoderConfig.TimeKey = zcfg.getTimeKey()
-	mCfg.EncoderConfig.EncodeTime = zcfg.getEncodeTime()
-	mCfg.EncoderConfig.EncodeLevel = zcfg.getEncodeLevel()
-	mCfg.Level = zap.NewAtomicLevelAt(zcfg.Level)
-	mCfg.Encoding = string(zcfg.getEncoding())
+	initConfig.EncoderConfig.MessageKey = config.msgKey()
+	initConfig.EncoderConfig.CallerKey = config.CallerKey
+	initConfig.EncoderConfig.TimeKey = config.getTimeKey()
+	initConfig.EncoderConfig.EncodeTime = config.getEncodeTime()
+	initConfig.EncoderConfig.EncodeLevel = config.getEncodeLevel()
+	initConfig.Level = zap.NewAtomicLevelAt(config.Level)
+	initConfig.Encoding = string(config.getEncoding())
 
 	zapLog := &Logecho{
-		zl: zap.Must(mCfg.Build()),
+		zl: zap.Must(initConfig.Build()),
 		m:  &sync.RWMutex{},
 	}
 

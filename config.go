@@ -6,19 +6,19 @@ import (
 )
 
 // defaultConfig set up the production default config
-var defaultConfig ZapConfig = ZapConfig{
+var defaultConfig Config = Config{
 	IsDevelopment: false,
 	Encoding:      JSON,
 }
 
 // DevConfig set up a development builtin config
-var DevConfig ZapConfig = ZapConfig{
+var DevConfig Config = Config{
 	IsDevelopment: true,
 	Level:         zap.DebugLevel,
 	Encoding:      Text,
 }
 
-// ZapConfig defines the base config to our Logger
+// Config defines the base config to our Logger
 //
 // You can set Keys to preset
 //
@@ -27,7 +27,7 @@ var DevConfig ZapConfig = ZapConfig{
 //	Time
 //
 // Key overrides only apply to key value log formats
-type ZapConfig struct {
+type Config struct {
 	// IsDevelopment as the property describes, is to
 	// set development configs
 	IsDevelopment bool
@@ -80,7 +80,7 @@ type ZapConfig struct {
 	Encoding Encoding
 }
 
-func (z ZapConfig) msgKey() string {
+func (z Config) msgKey() string {
 	if z.MessageKey == "" {
 		return "message"
 	}
@@ -88,7 +88,7 @@ func (z ZapConfig) msgKey() string {
 	return z.MessageKey
 }
 
-func (z ZapConfig) getTimeKey() string {
+func (z Config) getTimeKey() string {
 	if z.TimeKey == "" {
 		return "timestamp"
 	}
@@ -96,7 +96,7 @@ func (z ZapConfig) getTimeKey() string {
 	return z.TimeKey
 }
 
-func (z ZapConfig) getEncodeTime() zapcore.TimeEncoder {
+func (z Config) getEncodeTime() zapcore.TimeEncoder {
 	if z.EncodeTime == nil {
 		return zapcore.RFC3339TimeEncoder
 	}
@@ -104,7 +104,7 @@ func (z ZapConfig) getEncodeTime() zapcore.TimeEncoder {
 	return z.EncodeTime
 }
 
-func (z ZapConfig) getEncodeLevel() zapcore.LevelEncoder {
+func (z Config) getEncodeLevel() zapcore.LevelEncoder {
 	if z.EncodeLevel == nil {
 		if z.IsDevelopment {
 			return zapcore.LowercaseColorLevelEncoder
@@ -116,7 +116,7 @@ func (z ZapConfig) getEncodeLevel() zapcore.LevelEncoder {
 	return z.EncodeLevel
 }
 
-func (z ZapConfig) getEncoding() Encoding {
+func (z Config) getEncoding() Encoding {
 	if z.Encoding == "" {
 		return JSON
 	}

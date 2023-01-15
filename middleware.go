@@ -2,7 +2,7 @@ package logecho
 
 import "github.com/labstack/echo/v4"
 
-type Config struct {
+type MiddlewareConfig struct {
 	EnableLatency      bool
 	EnableRequestCount bool
 	EnableRequestID    bool
@@ -19,7 +19,7 @@ var (
 		"user-agent":     UserAgent,
 	}
 
-	defaultMiddlewareConfig = Config{
+	defaultMiddlewareConfig = MiddlewareConfig{
 		EnableRequestCount: true,
 		EnableLatency:      true,
 		EnableRequestID:    true,
@@ -39,7 +39,7 @@ func MiddlewareWithTemplate(tpl Fields) echo.MiddlewareFunc {
 	return MiddlewareWithConfig(cfg)
 }
 
-func MiddlewareWithConfig(cfg Config) echo.MiddlewareFunc {
+func MiddlewareWithConfig(cfg MiddlewareConfig) echo.MiddlewareFunc {
 	if len(cfg.Fields) == 0 {
 		cfg.Fields = defaultTpl
 	}

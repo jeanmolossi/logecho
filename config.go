@@ -80,6 +80,7 @@ type Config struct {
 	Encoding Encoding
 }
 
+// msgKey returns "message" as default when MessageKey is empty
 func (z Config) msgKey() string {
 	if z.MessageKey == "" {
 		return "message"
@@ -88,6 +89,7 @@ func (z Config) msgKey() string {
 	return z.MessageKey
 }
 
+// getTimeKey returns "timestamp" as default when TimeKey is empty
 func (z Config) getTimeKey() string {
 	if z.TimeKey == "" {
 		return "timestamp"
@@ -96,6 +98,7 @@ func (z Config) getTimeKey() string {
 	return z.TimeKey
 }
 
+// getEncodeTime returns "RFC3339" encoder when EncodeTime is nil
 func (z Config) getEncodeTime() zapcore.TimeEncoder {
 	if z.EncodeTime == nil {
 		return zapcore.RFC3339TimeEncoder
@@ -104,6 +107,8 @@ func (z Config) getEncodeTime() zapcore.TimeEncoder {
 	return z.EncodeTime
 }
 
+// getEncodeLevel returns "LowercaseLevelEncoder" when EncodeLevel
+// is nil
 func (z Config) getEncodeLevel() zapcore.LevelEncoder {
 	if z.EncodeLevel == nil {
 		if z.IsDevelopment {
@@ -116,6 +121,7 @@ func (z Config) getEncodeLevel() zapcore.LevelEncoder {
 	return z.EncodeLevel
 }
 
+// getEncoding returns "JSON" as default when Encoding is empty
 func (z Config) getEncoding() Encoding {
 	if z.Encoding == "" {
 		return JSON

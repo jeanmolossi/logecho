@@ -8,6 +8,17 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// ContextFields is the accepted field to generate
+// a Fields template. It have two classes, Request fields and
+// Response fields.
+//
+// Request fields can not be present in case that is a optional field.
+//
+// Response fields can not be present in case that is a optional field or
+// can be present with a default request value.
+//
+// A Response field who appears before a request response is Status.
+// That one will be 200 by default incoming from request defaults
 type ContextFields struct {
 	// request fields
 
@@ -26,8 +37,8 @@ type ContextFields struct {
 
 	// response fields
 
-	Status   int
-	BytesOut int64
+	Status   int   // Status is Response class field. It can be wrong before request's response
+	BytesOut int64 // BytesOut is Response class field. It can be wrong before request's response
 }
 
 func getTemplateFields(c echo.Context) ContextFields {

@@ -26,10 +26,10 @@ var (
 //
 // Returns the result of the template execution in bytes
 func readContext(c echo.Context) []byte {
-	poolMutex.Lock()
+	poolMutex.RLock()
 	buf := new(bytes.Buffer)
 	tpl.Execute(buf, getTemplateFields(c))
-	poolMutex.Unlock()
+	poolMutex.RUnlock()
 
 	return buf.Bytes()
 }

@@ -18,6 +18,8 @@ func generateRequestID() string {
 	return generateRequestIDWithCustomLength(12)
 }
 
+// generateRequestID will generate randomic string mixed by
+// letterBytes chars
 func generateRequestIDWithCustomLength(length int) string {
 	rand.Seed(time.Now().UnixNano())
 	requestID := make([]byte, length)
@@ -43,6 +45,13 @@ func getXRequestID(c echo.Context) string {
 	return c.Response().Header().Get(echo.HeaderXRequestID)
 }
 
+// installXRequestID will get request id incoming from headers.
+// If it already set in Request just set it into response too.
+//
+// In case of already has request on response just ignore.
+//
+// In case of has not request id on incoming headers and response
+// headers, generate a new one and set it on response
 func installXRequestID(c echo.Context) {
 	reqID := c.Request().Header.Get(echo.HeaderXRequestID)
 

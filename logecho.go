@@ -1,3 +1,9 @@
+// Package logecho is a small package to wrap zap logger into a thread-safe
+// logger who can use with echo framework context to write logs with high
+// performance.
+//
+// Implements a echo.Middleware to log requests and a singleton who can be used
+// to log in order parts of any application
 package logecho
 
 import (

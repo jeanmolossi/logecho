@@ -95,6 +95,7 @@ func MiddlewareWithConfig(cfg MiddlewareConfig) echo.MiddlewareFunc {
 			defer Logger.zl.Sync()
 
 			configTemplate(cfg.Fields, c)
+			installTransactionID(c)
 
 			if cfg.EnableLatency {
 				initLatencyCalc(c)
@@ -113,7 +114,7 @@ func MiddlewareWithConfig(cfg MiddlewareConfig) echo.MiddlewareFunc {
 				c.Error(err)
 			}
 
-			Logger.Info(c, "request done")
+			Logger.Info(c, "handled request")
 
 			if cfg.EnableRequestCount {
 				decrementRequestCounter()

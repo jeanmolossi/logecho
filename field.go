@@ -60,6 +60,7 @@ type (
 var (
 	RequestURI      = Field{"{{ .RequestURI }}", reflect.String}      // Built-in field to RequestURI - Request class field
 	RequestID       = Field{"{{ .RequestID }}", reflect.String}       // Built-in field to RequestID - Request class field
+	TransactionID   = Field{"{{ .TransactionID }}", reflect.String}   // Built-in field to TransactionID - Request class field
 	RealIP          = Field{"{{ .RealIP }}", reflect.String}          // Built-in field to RealIP - Request class field
 	Host            = Field{"{{ .Host }}", reflect.String}            // Built-in field to Host - Request class field
 	Method          = Field{"{{ .Method }}", reflect.String}          // Built-in field to Method - Request class field

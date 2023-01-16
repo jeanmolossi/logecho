@@ -2,8 +2,10 @@ package logecho
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -45,6 +47,10 @@ func getXRequestID(c echo.Context) string {
 	return c.Response().Header().Get(echo.HeaderXRequestID)
 }
 
+func getTransactionID(c echo.Context) string {
+	return c.Response().Header().Get("x-transaction-id")
+}
+
 // installXRequestID will get request id incoming from headers.
 // If it already set in Request just set it into response too.
 //
@@ -66,4 +72,24 @@ func installXRequestID(c echo.Context) {
 
 	reqID = generateRequestID()
 	c.Response().Header().Set(echo.HeaderXRequestID, reqID)
+}
+
+func installTransactionID(c echo.Context) {
+	header := "x-transaction-id"
+	transactionID := c.Request().Header.Get(header)
+	if transactionID == "" {
+		transactionID = c.Request().Header.Get(strings.TrimPrefix(header, "x-"))
+	}
+
+	if transactionID != "" {
+		c.Response().Header().Set(header, transactionID)
+		return
+	}
+
+	if transactionID := c.Response().Header().Get(header); transactionID != "" {
+		return
+	}
+
+	transactionID = uuid.NewString()
+	c.Response().Header().Set(header, transactionID)
 }

@@ -24,6 +24,7 @@ type ContextFields struct {
 
 	RequestURI      string
 	RequestID       string
+	TransactionID   string
 	RealIP          string
 	Host            string
 	Method          string
@@ -47,6 +48,7 @@ func getTemplateFields(c echo.Context) ContextFields {
 		// request fields
 		RequestURI:      c.Request().RequestURI,
 		RequestID:       getXRequestID(c),
+		TransactionID:   getTransactionID(c),
 		RealIP:          c.RealIP(),
 		Host:            c.Request().Host,
 		Method:          c.Request().Method,

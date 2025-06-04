@@ -6,7 +6,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/pkg/profile v1.7.0
-	go.uber.org/zap v1.24.0
+	go.uber.org/zap v1.27.0
 )
 
 require (
@@ -18,7 +18,7 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
-	go.uber.org/multierr v1.6.0 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/crypto v0.2.0 // indirect
 	golang.org/x/net v0.4.0 // indirect
 	golang.org/x/sys v0.3.0 // indirect
